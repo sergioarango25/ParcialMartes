@@ -1,0 +1,1349 @@
+/* =====================================================
+   Raíz Viva Mercado Natural - Hoja de estilos
+   Índice:
+   1. Variables y reinicio
+   2. Componentes generales (contenedor, botones, títulos)
+   3. Encabezado y menú
+   4. Hero
+   5. Nosotros
+   6. Productos
+   7. Beneficios
+   8. Pasos para pedir
+   9. Testimonios
+   10. Preguntas, contacto y formulario
+   11. Footer
+   12. Animaciones y movimiento reducido
+   13. Diseño adaptable (media queries)
+   ===================================================== */
+
+
+/* ---------- 1. Variables y reinicio ---------- */
+:root {
+  /* Paleta de colores de la marca */
+  --green: #244d35;          /* verde bosque: color principal */
+  --green-dark: #183b29;     /* verde oscuro: títulos y hover */
+  --sage: #a8b99a;           /* verde salvia: detalles suaves */
+  --cream: #faf8f1;          /* crema: fondo general */
+  --warm: #f0f1e8;           /* crema verdoso: fondos alternos */
+  --accent: #c28c3b;         /* acento cálido: estrellas y detalles */
+  --ink: #26352b;            /* color del texto */
+  --muted: #5f6a5f;          /* texto secundario */
+  --leaf-text: #4a6636;      /* verde para textos pequeños (buen contraste) */
+
+  --shadow: 0 10px 28px rgba(34, 58, 40, .12);
+  --radius: 18px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;   /* evita que el menú tape los títulos al navegar */
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  background: var(--cream);
+  line-height: 1.65;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/* SVG con el logo: se oculta porque solo guarda el dibujo */
+.svg-oculto {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* Foco visible para quien navega con el teclado */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+.menu-toggle:focus-visible + .menu-button {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+
+/* ---------- 2. Componentes generales ---------- */
+.container {
+  width: min(1160px, calc(100% - 40px));
+  margin-inline: auto;
+}
+
+.section {
+  padding: 82px 0;
+}
+
+.eyebrow {
+  font-size: .72rem;
+  letter-spacing: .16em;
+  font-weight: 700;
+  color: var(--leaf-text);
+  margin-bottom: 12px;
+}
+
+h2 {
+  font-family: 'Playfair Display', serif;
+  color: var(--green-dark);
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  line-height: 1.18;
+  margin-bottom: 18px;
+}
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 38px;
+}
+
+.section-heading h2 {
+  margin-bottom: 10px;
+}
+
+.section-heading > p:last-child {
+  color: var(--muted);
+}
+
+/* Botones */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 13px 21px;
+  border: 1px solid var(--green);
+  border-radius: 999px;
+  background: var(--green);
+  color: white;
+  font-weight: 700;
+  font-size: .9rem;
+  cursor: pointer;
+  transition: transform .2s, background .2s, box-shadow .2s;
+}
+
+.button:hover {
+  background: var(--green-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 18px rgba(36, 77, 53, .25);
+}
+
+.button:active {
+  transform: translateY(0);         /* efecto de "presionado" */
+  box-shadow: none;
+}
+
+.button-small {
+  font-size: .82rem;
+  padding: 11px 17px;
+  white-space: nowrap;
+}
+
+.button-outline {
+  background: transparent;
+  color: var(--green);
+  margin-top: 10px;
+}
+
+.button-outline:hover {
+  color: white;
+}
+
+
+/* ---------- 3. Encabezado y menú ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(250, 248, 241, .96);
+  border-bottom: 1px solid rgba(36, 77, 53, .12);
+  backdrop-filter: blur(12px);
+}
+
+.nav-wrap {
+  position: relative;
+  min-height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--green);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.05;
+  white-space: nowrap;
+}
+
+.brand-logo {
+  flex-shrink: 0;
+  transition: transform .4s;
+}
+
+.brand:hover .brand-logo {
+  transform: rotate(-12deg) scale(1.06);
+}
+
+.brand small {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .68rem;
+  font-weight: 500;
+  letter-spacing: .09em;
+  margin-top: 5px;
+}
+
+.main-nav {
+  order: 2;                   /* en escritorio: logo, menú y luego el botón */
+}
+
+.nav-wrap > .button {
+  order: 3;
+}
+
+.main-nav ul {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-size: .87rem;
+  font-weight: 600;
+}
+
+/* Subrayado animado con un pseudo-elemento */
+.main-nav a {
+  position: relative;
+  padding-block: 4px;
+  transition: color .2s;
+}
+
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s;
+}
+
+.main-nav a:hover {
+  color: var(--green-dark);
+}
+
+.main-nav a:hover::after {
+  transform: scaleX(1);
+}
+
+/* Menú hamburguesa: en escritorio no se ve */
+.menu-toggle {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.menu-button {
+  display: none;
+}
+
+
+/* ---------- 4. Hero ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 70px 0 90px;
+  background: linear-gradient(135deg, var(--cream) 0%, #e7eddf 100%);
+}
+
+/* Círculo decorativo de fondo */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -140px;
+  right: -120px;
+  width: 460px;
+  height: 460px;
+  border-radius: 50%;
+  background: var(--sage);
+  opacity: .35;
+}
+
+.hero-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  align-items: center;
+  gap: 50px;
+}
+
+.hero-content {
+  animation: aparecer .8s ease both;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.7rem, 5.5vw, 4.6rem);
+  line-height: 1.07;
+  color: var(--green-dark);
+  margin-bottom: 22px;
+}
+
+/* La etiqueta mark resalta la frase clave del título */
+.hero mark {
+  background: linear-gradient(transparent 62%, rgba(194, 140, 59, .45) 62%);
+  color: inherit;
+}
+
+.hero-copy {
+  max-width: 490px;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-top: 28px;
+}
+
+.text-link {
+  font-weight: 700;
+  color: var(--green);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 3px;
+  transition: color .2s;
+}
+
+.text-link:hover {
+  color: var(--green-dark);
+}
+
+.hero-figure {
+  position: relative;
+  animation: aparecer 1s .2s ease both;
+}
+
+.hero-image {
+  width: 100%;
+  height: 470px;
+  border-radius: 999px 999px 24px 24px;   /* forma de arco */
+  box-shadow: var(--shadow);
+}
+
+.hero-badge {
+  position: absolute;
+  left: -24px;
+  bottom: 40px;
+  max-width: 190px;
+  padding: 14px 18px;
+  background: white;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  font-size: .85rem;
+  line-height: 1.35;
+  color: var(--green-dark);
+  animation: flotar 4s ease-in-out infinite;
+}
+
+.hero-badge strong {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem;
+  color: var(--green);
+}
+
+
+/* ---------- 5. Nosotros ---------- */
+.about-grid {
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  align-items: center;
+  gap: 65px;
+}
+
+.about-figure figcaption {
+  margin-top: 10px;
+  text-align: center;
+  font-size: .8rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.about-image {
+  width: 100%;
+  height: 370px;
+  border-radius: 18px 18px 48% 48%;
+  box-shadow: var(--shadow);
+}
+
+.about-text p:not(.eyebrow) {
+  color: #4f594f;
+  margin-bottom: 14px;
+}
+
+/* Datos rápidos */
+.about-grid > * {
+  min-width: 0;               /* deja que las columnas se encojan en pantallas pequeñas */
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 30px;
+  margin: 22px 0 14px;
+  padding-block: 18px;
+  border-block: 1px solid rgba(36, 77, 53, .15);
+}
+
+.stats li {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.stats strong {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem;
+  color: var(--green);
+}
+
+.stats span {
+  font-size: .78rem;
+  color: var(--muted);
+}
+
+
+/* ---------- 6. Productos ---------- */
+.products-section {
+  background: var(--warm);
+}
+
+/* Cuadrícula de 3 columnas con CSS Grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.product-grid > li {
+  min-width: 0;               /* evita que las tarjetas desborden la cuadrícula */
+}
+
+.product-card {
+  height: 100%;
+  background: white;
+  border: 1px solid #e4e5dc;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(37, 62, 44, .05);
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--sage);
+  box-shadow: var(--shadow);
+}
+
+.product-card > img {
+  width: 100%;
+  height: 210px;
+  transition: transform .35s;
+}
+
+.product-card:hover > img {
+  transform: scale(1.035);
+}
+
+.product-info {
+  padding: 20px;
+}
+
+.product-category {
+  color: var(--leaf-text);
+  font-size: .67rem;
+  letter-spacing: .14em;
+  font-weight: 700;
+}
+
+.product-info h3 {
+  font-size: 1.15rem;
+  margin: 5px 0 8px;
+  color: var(--green-dark);
+}
+
+.product-info > p:not(.product-category) {
+  color: var(--muted);
+  font-size: .9rem;
+  min-height: 48px;
+}
+
+.product-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 17px;
+  padding-top: 14px;
+  border-top: 1px solid #edf0e8;
+}
+
+.product-bottom strong {
+  color: var(--green);
+  font-size: 1rem;
+}
+
+.product-bottom small {
+  font-size: .68rem;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.product-bottom a {
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--green);
+}
+
+.product-bottom a:hover {
+  text-decoration: underline;
+}
+
+.price-note {
+  text-align: center;
+  color: var(--muted);
+  font-size: .78rem;
+  margin-top: 25px;
+}
+
+abbr {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+
+/* ---------- 7. Beneficios ---------- */
+.benefits-section {
+  background: var(--green);
+  color: white;
+}
+
+.benefits-section .eyebrow {
+  color: #c8d7ad;
+}
+
+.benefits-section h2 {
+  color: white;
+}
+
+.benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 35px;
+}
+
+.benefit {
+  text-align: center;
+  padding: 20px 26px;
+  border-radius: var(--radius);
+  transition: background .25s, transform .25s;
+}
+
+.benefit:hover {
+  background: rgba(255, 255, 255, .07);
+  transform: translateY(-4px);
+}
+
+.benefit-icon {
+  display: grid;
+  place-items: center;
+  width: 65px;
+  height: 65px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .1);
+  border: 1px solid rgba(255, 255, 255, .3);
+  color: #dbe8c3;
+  font-size: 2rem;
+}
+
+.benefit h3 {
+  font-size: 1.13rem;
+  margin-bottom: 9px;
+}
+
+.benefit p {
+  color: #e0e8dd;
+  font-size: .92rem;
+}
+
+.benefit-note {
+  max-width: 720px;
+  margin: 28px auto 0;
+  text-align: center;
+  color: #e0e8dd;
+  font-size: .9rem;
+  font-style: italic;
+}
+
+
+/* ---------- 8. Pasos para pedir ---------- */
+.steps-section {
+  background: var(--cream);
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  counter-reset: paso;           /* contador para numerar los pasos */
+}
+
+.steps li {
+  position: relative;
+  padding: 58px 24px 26px;
+  background: white;
+  border: 1px solid #e8e6dc;
+  border-radius: var(--radius);
+  text-align: center;
+  counter-increment: paso;
+}
+
+/* El número se dibuja con un pseudo-elemento */
+.steps li::before {
+  content: counter(paso);
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--green-dark);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  box-shadow: 0 6px 14px rgba(194, 140, 59, .35);
+}
+
+.steps h3 {
+  color: var(--green-dark);
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+}
+
+.steps p {
+  color: var(--muted);
+  font-size: .92rem;
+}
+
+
+/* ---------- 9. Testimonios ---------- */
+.testimonials-section {
+  background: var(--warm);
+}
+
+.sample-note {
+  font-size: .8rem;
+  font-style: italic;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.quote-card {
+  padding: 28px;
+  background: white;
+  border: 1px solid #e8e6dc;
+  border-radius: var(--radius);
+  box-shadow: 0 5px 20px rgba(32, 58, 40, .08);
+  transition: transform .25s, box-shadow .25s;
+}
+
+.quote-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.stars {
+  color: var(--accent);
+  letter-spacing: .14em;
+  font-size: 1.05rem;
+  margin-bottom: 14px;
+}
+
+.quote-card blockquote {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.quote-author {
+  font-weight: 700;
+  color: var(--green);
+  margin-top: 22px;
+}
+
+.quote-author small {
+  display: block;
+  color: var(--muted);
+  font-weight: 400;
+  font-size: .76rem;
+}
+
+
+/* ---------- 10. Preguntas, contacto y formulario ---------- */
+.faq-contact {
+  background: var(--cream);
+}
+
+.faq-contact-grid {
+  display: grid;
+  grid-template-columns: .85fr 1.15fr;
+  gap: 70px;
+  align-items: start;
+}
+
+.faq h2,
+.contact-form-wrap h2 {
+  font-size: 2.15rem;
+}
+
+.faq details {
+  border-bottom: 1px solid #d8ded2;
+  padding: 17px 0;
+}
+
+.faq summary {
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--green-dark);
+  list-style-position: inside;
+}
+
+.faq summary:hover {
+  color: var(--leaf-text);
+}
+
+.faq details p {
+  color: var(--muted);
+  padding: 12px 24px 0;
+  font-size: .91rem;
+}
+
+/* Tarjeta con los datos de contacto */
+.contact-card {
+  margin-top: 36px;
+  padding: 24px;
+  background: var(--green);
+  color: white;
+  border-radius: var(--radius);
+  font-style: normal;
+}
+
+.contact-card h3 {
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 12px;
+}
+
+.contact-card li {
+  display: flex;
+  gap: 10px;
+  padding-block: 5px;
+  font-size: .92rem;
+}
+
+.contact-card a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.contact-card a:hover {
+  color: #dbe8c3;
+}
+
+.contact-card a:focus-visible {
+  outline-color: white;
+}
+
+.contact-card small {
+  color: #c8d5c8;
+}
+
+/* Formulario */
+.contact-form-wrap {
+  padding: 34px;
+  background: white;
+  border: 1px solid #e8e6dc;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.form-intro {
+  color: var(--muted);
+  font-size: .9rem;
+  margin: -5px 0 22px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 15px;
+}
+
+.form-field label {
+  font-size: .82rem;
+  font-weight: 700;
+  color: #405341;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  padding: 12px 13px;
+  background: var(--cream);
+  border: 1px solid #c9d1c2;
+  border-radius: 9px;
+  color: var(--ink);
+  transition: border-color .2s, box-shadow .2s, background .2s;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: #77817a;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  background: white;
+  border-color: var(--green);
+  outline: 3px solid rgba(194, 140, 59, .55);
+  outline-offset: 1px;
+}
+
+/* Avisa cuando un campo con texto no es válido */
+.form-field input:not(:placeholder-shown):invalid,
+.form-field textarea:not(:placeholder-shown):invalid {
+  border-color: #b3402f;
+}
+
+.form-field input:not(:placeholder-shown):valid,
+.form-field textarea:not(:placeholder-shown):valid {
+  border-color: #4f8a52;
+}
+
+.form-field textarea {
+  resize: vertical;
+}
+
+/* Estados del botón de envío */
+.submit-button {
+  width: 100%;
+  padding: 15px 21px;
+}
+
+.submit-button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.submit-button:disabled {
+  background: #9aa89d;
+  border-color: #9aa89d;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+
+/* ---------- 11. Footer ---------- */
+.site-footer {
+  background: #173a29;
+  color: #eaf0e4;
+  padding: 44px 0 18px;
+}
+
+.footer-main {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1.2fr;
+  gap: 40px;
+  padding-bottom: 30px;
+}
+
+.brand-footer {
+  color: var(--sage);         /* el círculo del logo se ve sobre el fondo oscuro */
+  margin-bottom: 12px;
+}
+
+.brand-footer span {
+  color: white;
+}
+
+.footer-brand p {
+  color: #c8d5c8;
+  font-size: .9rem;
+}
+
+.footer-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: .8rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #c8d7ad;
+  margin-bottom: 12px;
+}
+
+.footer-nav li,
+.footer-contact li {
+  font-size: .88rem;
+  padding-block: 3px;
+  color: #dbe5d6;
+}
+
+.footer-nav a,
+.footer-contact a {
+  transition: color .2s;
+}
+
+.footer-nav a:hover,
+.footer-contact a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.site-footer a:focus-visible {
+  outline-color: white;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, .2);
+  color: #bdcbbd;
+  font-size: .75rem;
+}
+
+
+/* ---------- 12. Animaciones y movimiento reducido ---------- */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Etiqueta del hero que sube y baja suavemente */
+@keyframes flotar {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* Las tarjetas aparecen al hacer scroll (solo en navegadores compatibles) */
+@supports (animation-timeline: view()) {
+  .product-card,
+  .quote-card,
+  .steps li {
+    animation: aparecer linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 40%;
+  }
+}
+
+/* Si la persona prefiere menos movimiento, se quitan las animaciones */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+
+/* ---------- 13. Diseño adaptable ---------- */
+
+/* Tableta */
+@media (max-width: 1000px) {
+  .nav-wrap {
+    gap: 15px;
+  }
+
+  .main-nav ul {
+    gap: 14px;
+    font-size: .8rem;
+  }
+
+  .brand {
+    font-size: 1.3rem;
+  }
+
+  .button-small {
+    font-size: .75rem;
+    padding: 10px 13px;
+  }
+
+  .hero-grid,
+  .about-grid {
+    gap: 35px;
+  }
+
+  .faq-contact-grid {
+    gap: 35px;
+  }
+
+  .footer-main {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Celular grande: aparece el menú hamburguesa */
+@media (max-width: 760px) {
+  .container {
+    width: min(100% - 32px, 560px);
+  }
+
+  .nav-wrap {
+    min-height: 72px;
+    padding-block: 10px;
+  }
+
+  /* El botón de pedido se pasa a la derecha, junto al menú */
+  .nav-wrap > .button {
+    order: 0;
+    margin-left: auto;
+  }
+
+  .main-nav {
+    order: 0;
+  }
+
+  .menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(36, 77, 53, .25);
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  /* Las tres rayitas se dibujan con una línea y dos pseudo-elementos */
+  .menu-button span,
+  .menu-button span::before,
+  .menu-button span::after {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--green);
+    border-radius: 2px;
+    transition: transform .25s, background .25s;
+  }
+
+  .menu-button span {
+    position: relative;
+  }
+
+  .menu-button span::before,
+  .menu-button span::after {
+    content: "";
+    position: absolute;
+    left: 0;
+  }
+
+  .menu-button span::before { top: -6px; }
+  .menu-button span::after  { top: 6px; }
+
+  /* Cuando el menú está abierto, las rayas forman una X */
+  .menu-toggle:checked + .menu-button span {
+    background: transparent;
+  }
+
+  .menu-toggle:checked + .menu-button span::before {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .menu-toggle:checked + .menu-button span::after {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  /* Panel del menú: oculto hasta que el checkbox esté marcado */
+  .main-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: -16px;
+    right: -16px;
+    padding: 8px 16px 16px;
+    background: var(--cream);
+    border-bottom: 1px solid rgba(36, 77, 53, .15);
+    box-shadow: var(--shadow);
+  }
+
+  .menu-toggle:checked ~ .main-nav {
+    display: block;
+    animation: aparecer .25s ease both;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .main-nav a {
+    display: block;
+    padding: 14px 4px;
+    font-size: 1rem;
+    border-bottom: 1px solid rgba(36, 77, 53, .1);
+  }
+
+  .main-nav a::after {
+    display: none;
+  }
+
+  .section {
+    padding: 60px 0;
+  }
+
+  .hero {
+    padding: 44px 0 60px;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 11vw, 3.6rem);
+  }
+
+  .hero-copy {
+    font-size: 1rem;
+  }
+
+  .hero-image {
+    height: 340px;
+  }
+
+  .hero-badge {
+    left: 10px;
+    bottom: 20px;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .about-image {
+    height: 260px;
+  }
+
+  .stats {
+    gap: 18px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .product-card > img {
+    height: 155px;
+  }
+
+  .product-info {
+    padding: 14px;
+  }
+
+  .product-info h3 {
+    font-size: 1rem;
+  }
+
+  .product-info > p:not(.product-category) {
+    font-size: .82rem;
+    min-height: 65px;
+  }
+
+  .product-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .benefit-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .benefit {
+    padding: 18px 20px;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quote-card {
+    padding: 23px;
+  }
+
+  .faq-contact-grid {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+
+  .contact-form-wrap {
+    padding: 24px 20px;
+  }
+
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
+/* Celular pequeño */
+@media (max-width: 430px) {
+  .container {
+    width: calc(100% - 26px);
+  }
+
+  .brand {
+    font-size: 1.15rem;
+  }
+
+  .brand-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .nav-wrap {
+    gap: 10px;
+  }
+
+  .nav-wrap > .button {
+    font-size: .7rem;
+    padding: 9px 11px;
+  }
+
+  .hero-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 17px;
+  }
+
+  .stats {
+    flex-wrap: wrap;
+  }
+
+  /* Tarjetas en horizontal: imagen a la izquierda, texto a la derecha */
+  .product-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .product-card {
+    display: grid;
+    grid-template-columns: 40% 60%;
+  }
+
+  .product-card > img {
+    height: 100%;
+    min-height: 220px;
+  }
+
+  .product-info {
+    padding: 13px;
+  }
+
+  .product-info > p:not(.product-category) {
+    min-height: 0;
+  }
+
+  .product-bottom {
+    gap: 8px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .section-heading {
+    margin-bottom: 28px;
+  }
+
+  .faq h2,
+  .contact-form-wrap h2 {
+    font-size: 1.85rem;
+  }
+}
